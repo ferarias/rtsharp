@@ -11,7 +11,7 @@ namespace RTConnector
             // Create a client object for the RT service
             var client = RtRestClientFactory.SingleInstance.GetRtTicketClient(new StringDictionary
             {
-                {RtRestClientFactory.BaseUrl, "https://rt.toolfactory.net/REST/1.0/"},
+                {RtRestClientFactory.BaseUrl, "https://rt.rhino.acme.net/REST/1.0/"},
                 {RtRestClientFactory.Username, "x"},
                 {RtRestClientFactory.Password, "x"}
             });
