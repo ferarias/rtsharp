@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "RTConnector\Test.csproj", "{B10BA16C-0823-4D8A-82CC-0C85C05C23CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B10BA16C-0823-4D8A-82CC-0C85C05C23CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolfactory.RequestTracker", "Toolfactory.RequestTracker\Toolfactory.RequestTracker.csproj", "{5CB12DFA-A9D2-4BDE-AFB0-4D7989883FCE}"
 EndProject
