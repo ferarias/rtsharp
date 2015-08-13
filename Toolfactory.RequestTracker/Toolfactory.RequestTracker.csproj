@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5CB12DFA-A9D2-4BDE-AFB0-4D7989883FCE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Toolfactory.RequestTracker</RootNamespace>
+    <AssemblyName>Toolfactory.RequestTracker</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connector\CookieAwareWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Connector\RtClient.cs" />
+    <Compile Include="Connector\RtResponse.cs" />
+    <Compile Include="Connector\TicketSearchResponseFormat.cs" />
+    <Compile Include="Client\IRtTicketClient.cs" />
+    <Compile Include="Client\RtRestClientFactory.cs" />
+    <Compile Include="Client\RtRestTicketClient.cs" />
+    <Compile Include="Client\RtClientFactory.cs" />
+    <Compile Include="Client\RtClientType.cs" />
+    <Compile Include="Model\IRtCustomFieldObject.cs" />
+    <Compile Include="Model\RTCustomField.cs" />
+    <Compile Include="Model\RTTicket.cs" />
+    <Compile Include="Parser\ITicketSearchResponseParser.cs" />
+    <Compile Include="Parser\MultilineTicketSearchResponseParser.cs" />
+    <Compile Include="Parser\Processor\DateTimeFieldProcessor.cs" />
+    <Compile Include="Parser\Processor\DefaultCustomFieldProcessor.cs" />
+    <Compile Include="Parser\Processor\DefaultFieldProcessor.cs" />
+    <Compile Include="Parser\Processor\FieldProcessorRegistry.cs" />
+    <Compile Include="Parser\Processor\GenericFieldProcessor.cs" />
+    <Compile Include="Parser\Processor\IFieldProcessor.cs" />
+    <Compile Include="Parser\Processor\LongFieldProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helper\ReflectionHelper.cs" />
+    <Compile Include="Helper\StringHelperClass.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
