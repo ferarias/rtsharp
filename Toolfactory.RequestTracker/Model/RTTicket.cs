@@ -36,7 +36,7 @@ namespace Toolfactory.RequestTracker.Model
 
         public override string ToString()
         {
-            return "RTTicket [id=" + Id + ", subject=" + Subject + ", timeWorked=" + TimeWorked + ", customFields=" + CustomFields + "]";
+            return String.Format("[id={0}, sub='{1}', own='{2}', cre='{3}', pri={4}", Id, Subject, Owner, Creator, Priority);
         }
     }
 }

@@ -12,18 +12,18 @@ namespace Toolfactory.RequestTracker.Client
         private RtRestClientFactory() { }
         #endregion
 
-        public static readonly string BaseUrl = typeof(RtRestClientFactory).FullName + "_RtBaseUrl";
-        public static readonly string Username = typeof(RtRestClientFactory).FullName + "_RtUsername";
-        public static readonly string Password = typeof(RtRestClientFactory).FullName + "_RtPassword";
+        public static readonly string RtServer = typeof(RtRestClientFactory).FullName + "_RtServer";
+        public static readonly string RtUsername = typeof(RtRestClientFactory).FullName + "_RtUsername";
+        public static readonly string RtPassword = typeof(RtRestClientFactory).FullName + "_RtPassword";
 
         public override IRtTicketClient GetRtTicketClient(StringDictionary parameters)
         {
             return new RtRestTicketClient
             {
                 Client = new RtClient(
-                    parameters[BaseUrl], 
-                    parameters[Username],
-                    parameters[Password])
+                    parameters[RtServer], 
+                    parameters[RtUsername],
+                    parameters[RtPassword])
             };
         }
     }

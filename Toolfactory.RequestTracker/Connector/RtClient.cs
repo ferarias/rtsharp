@@ -11,9 +11,11 @@ namespace Toolfactory.RequestTracker.Connector
     {
         #region "Ctors"
 
-        public RtClient(string baseUrl, string username, string password)
+        private const string RtBaseUrlFormat = "https://{0}/REST/1.0/";
+
+        public RtClient(string server, string username, string password, bool useHttps = false)
         {
-            BaseUrl = baseUrl;
+            BaseUrl = String.Format(RtBaseUrlFormat, server);
             Username = username;
             Password = password;
             _httpClient = new CookieAwareWebClient {Encoding = Encoding.UTF8};
