@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Toolfactory.RequestTracker.Model
 {
-    public sealed class RtTicket : IRtCustomFieldObject
+    public sealed class RtTicket : ICustomField
     {
         public long? Id { get; set; }
         public string Queue { get; set; }

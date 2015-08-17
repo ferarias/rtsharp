@@ -51,9 +51,9 @@
     <Compile Include="Client\RtRestTicketClient.cs" />
     <Compile Include="Client\RtClientFactory.cs" />
     <Compile Include="Client\RtClientType.cs" />
-    <Compile Include="Model\IRtCustomFieldObject.cs" />
-    <Compile Include="Model\RTCustomField.cs" />
-    <Compile Include="Model\RTTicket.cs" />
+    <Compile Include="Model\ICustomField.cs" />
+    <Compile Include="Model\RtCustomField.cs" />
+    <Compile Include="Model\RtTicket.cs" />
     <Compile Include="Parser\ITicketSearchResponseParser.cs" />
     <Compile Include="Parser\MultilineTicketSearchResponseParser.cs" />
     <Compile Include="Parser\Processor\DateTimeFieldProcessor.cs" />

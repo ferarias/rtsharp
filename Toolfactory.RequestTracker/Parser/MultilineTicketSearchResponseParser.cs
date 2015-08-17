@@ -20,8 +20,42 @@ namespace Toolfactory.RequestTracker.Parser
         #region "Singleton"
         private static readonly Lazy<MultilineTicketSearchResponseParser> Singleton = new Lazy<MultilineTicketSearchResponseParser>(() => new MultilineTicketSearchResponseParser());
         public static MultilineTicketSearchResponseParser Instance { get { return Singleton.Value; } }
-        private MultilineTicketSearchResponseParser() { } 
+        private MultilineTicketSearchResponseParser() { }
         #endregion
+
+        public RtTicket ParseTicketGetResponse(RtResponse response)
+        {
+            IDictionary<string, string> ticketData = new Dictionary<string, string>();
+
+            string fieldName = null;
+            var tmp = new StringBuilder();
+            foreach (var ticketLine in response.Body.Split(TicketLinesDelimiter, true))
+            {
+                var m = KeyValueRegex.Matches(ticketLine);
+                if (m.Count > 0)
+                {
+                    var match = m[0];
+                    var groupCollection = match.Groups;
+
+                    if (fieldName != null)
+                    {
+                        ticketData[fieldName] = tmp.ToString();
+                        tmp.Length = 0;
+                    }
+
+                    fieldName = groupCollection[1].ToString();
+                    tmp.Append(groupCollection[2]);
+                }
+                else
+                {
+                    tmp.Append(ticketLine);
+                }
+            }
+            if (fieldName != null)
+                ticketData[fieldName] = tmp.ToString();
+
+            return ProcessTicketData(ticketData);
+        }
 
         public IEnumerable<RtTicket> ParseTicketSearchResponse(RtResponse response)
         {
@@ -40,13 +74,13 @@ namespace Toolfactory.RequestTracker.Parser
                     var m = KeyValueRegex.Matches(ticketLine);
                     if (m.Count > 0)
                     {
-                        var match = m[0]; 
+                        var match = m[0];
                         var groupCollection = match.Groups;
 
                         if (fieldName != null)
                         {
                             ticketData[fieldName] = tmp.ToString();
-                            tmp.Length = 0; 
+                            tmp.Length = 0;
                         }
 
                         fieldName = groupCollection[1].ToString();
@@ -57,7 +91,7 @@ namespace Toolfactory.RequestTracker.Parser
                         tmp.Append(ticketLine);
                     }
                 }
-                if(fieldName != null)
+                if (fieldName != null)
                     ticketData[fieldName] = tmp.ToString();
 
                 resultData.Add(ticketData);

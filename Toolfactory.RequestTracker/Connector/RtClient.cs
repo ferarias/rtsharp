@@ -13,7 +13,7 @@ namespace Toolfactory.RequestTracker.Connector
 
         private const string RtBaseUrlFormat = "https://{0}/REST/1.0/";
 
-        public RtClient(string server, string username, string password, bool useHttps = false)
+        public RtClient(string server, string username, string password)
         {
             BaseUrl = String.Format(RtBaseUrlFormat, server);
             Username = username;
@@ -43,11 +43,13 @@ namespace Toolfactory.RequestTracker.Connector
         public RtResponse Login()
         {
             var url = string.Format("user/{0}", Username);
-            IList<KeyValuePair<string, string>> @params = new List<KeyValuePair<string, string>>();
-            @params.Add(new KeyValuePair<string, string>("user", Username));
-            @params.Add(new KeyValuePair<string, string>("pass", Password));
+            var parameters = new Dictionary<string, string>
+            {
+                {"user", Username},
+                {"pass", Password}
+            };
 
-            return GetResponse(url, @params);
+            return GetResponse(url, parameters);
         }
 
         public RtResponse Logout()
@@ -55,36 +57,17 @@ namespace Toolfactory.RequestTracker.Connector
             return GetResponse("logout");
         }
 
-        public RtResponse SearchTickets(string query)
+        public RtResponse SearchTickets(string query, string orderby = null, TicketSearchResponseFormat format = null)
         {
-            return SearchTickets(query, null, null);
+            var queryParams = new Dictionary<string, string> {{"query", query}};
+            if (orderby != null) queryParams.Add("orderby", orderby);
+            if (format != null) queryParams.Add("format", format.FormatString);
+            return GetResponse("search/ticket", queryParams);
         }
 
-        public RtResponse SearchTickets(string query, string orderby)
+        public RtResponse GetTicket(long id)
         {
-            return SearchTickets(query, orderby, null);
-        }
-
-        public RtResponse SearchTickets(string query, TicketSearchResponseFormat format)
-        {
-            return SearchTickets(query, null, format);
-        }
-
-        public RtResponse SearchTickets(string query, string orderby, TicketSearchResponseFormat format)
-        {
-            var @params = new List<KeyValuePair<string, string>> {new KeyValuePair<string, string>("query", query)};
-
-            if (orderby != null)
-            {
-                @params.Add(new KeyValuePair<string, string>("orderby", orderby));
-            }
-
-            if (format != null)
-            {
-                @params.Add(new KeyValuePair<string, string>("format", format.FormatString));
-            }
-
-            return GetResponse("search/ticket", @params);
+            return GetResponse("ticket/" + id);
         }
 
         #endregion
@@ -93,16 +76,16 @@ namespace Toolfactory.RequestTracker.Connector
 
         private RtResponse GetResponse(string url)
         {
-            return GetResponse(url, new List<KeyValuePair<string, string>>());
+            return GetResponse(url, new Dictionary<string, string>());
         }
 
-        private RtResponse GetResponse(string url, IList<KeyValuePair<string, string>> @params)
+        private RtResponse GetResponse(string url, Dictionary<string, string> parameters)
         {
             string responseBody;
-            if (@params.Any())
+            if (parameters.Any())
             {
                 var postData = new StringBuilder();
-                foreach (var item in @params)
+                foreach (var item in parameters)
                     postData.Append(String.Format("{0}={1}&", item.Key, HttpUtility.UrlEncode(item.Value)));
                 responseBody = _httpClient.UploadString(BaseUrl + url, postData.ToString());
             }

@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace Toolfactory.RequestTracker.Connector
+﻿namespace Toolfactory.RequestTracker.Connector
 {
     public class RtResponse
     {
@@ -8,6 +6,5 @@ namespace Toolfactory.RequestTracker.Connector
         public long? StatusCode { get; set; }
         public string StatusMessage { get; set; }
         public string Body { get; set; }
-        public CookieContainer SessionCookies { get; set; }
     }
 }

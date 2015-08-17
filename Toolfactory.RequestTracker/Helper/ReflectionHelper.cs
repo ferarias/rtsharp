@@ -10,14 +10,8 @@ namespace Toolfactory.RequestTracker.Helper
     {
         public static void CopyObject(ref object dest, object src)
         {
-            if (null == src)
-            {
-                throw new ArgumentNullException("src");
-            }
-            if (null == dest)
-            {
-                throw new ArgumentNullException("dest");
-            }
+            if (null == src) throw new ArgumentNullException("src");
+            if (null == dest) throw new ArgumentNullException("dest");
             var srcType = src.GetType();
             var destType = dest.GetType();
             var srcInfo = srcType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -56,27 +50,16 @@ namespace Toolfactory.RequestTracker.Helper
 
         public static void CopyProperty(ref object dest, object src, string fieldName)
         {
-            if (null == src)
-            {
-                throw new ArgumentNullException("src");
-            }
-            if (null == dest)
-            {
-                throw new ArgumentNullException("dest");
-            }
-            if (null == dest)
-            {
-                throw new ArgumentNullException("fieldName");
-            }
+            if (null == src) throw new ArgumentNullException("src");
+            if (null == dest) throw new ArgumentNullException("dest");
+            if (null == dest) throw new ArgumentNullException("fieldName");
             var srcType = src.GetType();
             var destType = dest.GetType();
             var srcInfo = srcType.GetField(fieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             var destInfo = destType.GetField(fieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            if (!(srcInfo == null) && !(destInfo == null))
-            {
-                var val = srcInfo.GetValue(src);
-                destInfo.SetValue(dest, val);
-            }
+            if (srcInfo == null || destInfo == null) return;
+            var val = srcInfo.GetValue(src);
+            destInfo.SetValue(dest, val);
         }
         public static void SetProperty(object instance, string propery, object value)
         {

@@ -14,7 +14,19 @@ namespace Toolfactory.RequestTracker.Client
 
         public RtTicket FindById(long id)
         {
-            throw new NotImplementedException();
+            Client.Login();
+            var response = Client.GetTicket(id);
+            Client.Logout();
+            var parser = MultilineTicketSearchResponseParser.Instance;
+            switch (response.StatusCode)
+            {
+                case 200:
+                    return parser.ParseTicketGetResponse(response);
+                case 401:
+                    throw new InvalidCredentialException(response.StatusMessage);
+                default:
+                    throw new IOException(String.Format("Server returned {0} ({1})", response.StatusCode, response.StatusMessage));
+            }
         }
 
         public IEnumerable<RtTicket> FindByQuery(string query)

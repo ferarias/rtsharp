@@ -2,7 +2,7 @@
 
 namespace Toolfactory.RequestTracker.Model
 {
-    public interface IRtCustomFieldObject
+    public interface ICustomField
     {
         IDictionary<string, RtCustomField> CustomFields { get; }
     }

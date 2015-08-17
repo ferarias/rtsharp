@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Configuration;
 using CommandLine;
+using Newtonsoft.Json;
 using Toolfactory.RequestTracker.Client;
 
 namespace RtUtil
@@ -44,10 +45,16 @@ namespace RtUtil
                     // Use client to Query tickets
                     var tickets = client.FindByQuery(options.Query);
 
+                    //var ticket = client.FindById(89173);
+                    //Console.WriteLine(JsonConvert.SerializeObject(ticket);
+
                     // Traverse tickets
                     foreach (var ticket in tickets)
                     {
-                        Console.WriteLine(ticket);
+                        if(options.Verbose)
+                            Console.WriteLine(JsonConvert.SerializeObject(ticket));
+                        else
+                            Console.WriteLine(ticket);
                     }
                     //Console.ReadKey();
                 }

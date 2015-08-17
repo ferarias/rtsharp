@@ -22,6 +22,9 @@ namespace RtUtil
         [ValueOption(0)]
         public string Query { get; set; }
 
+        [Option('v', "verbose", HelpText = "Verbose output")]
+        public bool Verbose{ get; set; }
+
 
         [HelpOption]
         public string GetUsage()
